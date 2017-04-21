@@ -1,1 +1,5 @@
 build
+x86_debug
+x86_release
+x64_debug
+x64_release
