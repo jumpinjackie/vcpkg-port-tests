@@ -16,7 +16,9 @@ endif(WIN32)
 
 message(STATUS "Building for ${CMAKE_BUILD_TYPE}")
 
-# xalan-c port
+#
+# xalan-c
+#
 find_path(XALANC_INCLUDE NAMES "xalanc/Include/PlatformDefinitions.hpp")
 find_library(XALANC_LIBRARY_DEBUG NAMES Xalan-C_1D)
 find_library(XALANC_LIBRARY_RELEASE NAMES Xalan-C_1)
@@ -25,18 +27,24 @@ if(NOT XALANC_INCLUDE)
 else(NOT XALANC_INCLUDE)
     message(STATUS "Found xalan-c include path: ${XALANC_INCLUDE}")
 endif()
-if(NOT XALANC_LIBRARY_DEBUG)
-    message(FATAL_ERROR "xalan-c debug library not found")
-else(NOT XALANC_LIBRARY_DEBUG)
-    message(STATUS "Found xalan-c debug library: ${XALANC_LIBRARY_DEBUG}")
-endif()
-if(NOT XALANC_LIBRARY_RELEASE)
-    message(FATAL_ERROR "xalan-c release library not found")
-else(NOT XALANC_LIBRARY_RELEASE)
-    message(STATUS "Found xalan-c release library: ${XALANC_LIBRARY_RELEASE}")
+# This is the suggested pattern for finding debug/release libraries in multi-config generators like VS
+# https://cmake.org/Bug/view.php?id=13588&history=1
+if(XALANC_LIBRARY_DEBUG AND XALANC_LIBRARY_RELEASE)
+    set(XALANC_LIBRARY optimized ${XALANC_LIBRARY_RELEASE} debug ${XALANC_LIBRARY_DEBUG})
+    message(STATUS "Found xalan-c library")
+elseif(XALANC_LIBRARY_RELEASE)
+    set(XALANC_LIBRARY ${XALANC_LIBRARY_RELEASE})
+    message(STATUS "Found xalan-c release library: ${XALANC_LIBRARY}")
+elseif(XALANC_LIBRARY_DEBUG)
+    set(XALANC_LIBRARY ${XALANC_LIBRARY_DEBUG})
+    message(STATUS "Found xalan-c debug library: ${XALANC_LIBRARY}")
+else()
+    message(FATAL_ERROR "xalan-c library not found")
 endif()
 
+#
 # xerces-c
+#
 find_path(XERCESC_INCLUDE NAMES "xercesc/util/PlatformUtils.hpp")
 find_library(XERCESC_LIBRARY_DEBUG NAMES xerces-c_3D)
 find_library(XERCESC_LIBRARY_RELEASE NAMES xerces-c_3)
@@ -45,15 +53,19 @@ if(NOT XERCESC_INCLUDE)
 else(NOT XERCESC_INCLUDE)
     message(STATUS "Found xerces-c include path: ${XERCESC_INCLUDE}")
 endif()
-if(NOT XERCESC_LIBRARY_DEBUG)
-    message(FATAL_ERROR "xerces-c debug library not found")
-else(NOT XERCESC_LIBRARY_DEBUG)
-    message(STATUS "Found xerces-c debug library: ${XERCESC_LIBRARY_DEBUG}")
-endif()
-if(NOT XERCESC_LIBRARY_RELEASE)
-    message(FATAL_ERROR "xerces-c release library not found")
-else(NOT XERCESC_LIBRARY_RELEASE)
-    message(STATUS "Found xerces-c release library: ${XERCESC_LIBRARY_RELEASE}")
+# This is the suggested pattern for finding debug/release libraries in multi-config generators like VS
+# https://cmake.org/Bug/view.php?id=13588&history=1
+if(XERCESC_LIBRARY_DEBUG AND XERCESC_LIBRARY_RELEASE)
+    set(XERCESC_LIBRARY optimized ${XERCESC_LIBRARY_RELEASE} debug ${XERCESC_LIBRARY_DEBUG})
+    message(STATUS "Found xerces-c library")
+elseif(XERCESC_LIBRARY_RELEASE)
+    set(XERCESC_LIBRARY ${XERCESC_LIBRARY_RELEASE})
+    message(STATUS "Found xerces-c release library: ${XERCESC_LIBRARY}")
+elseif(XERCESC_LIBRARY_DEBUG)
+    set(XERCESC_LIBRARY ${XERCESC_LIBRARY_DEBUG})
+    message(STATUS "Found xerces-c debug library: ${XERCESC_LIBRARY}")
+else()
+    message(FATAL_ERROR "xerces-c library not found")
 endif()
 
 add_subdirectory(xalan-c)

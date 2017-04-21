@@ -7,7 +7,7 @@ set(CreateDOMDocument_SOURCES "CreateDOMDocument.cpp")
 
 add_executable("${PROJECT_NAME}" "${CreateDOMDocument_SOURCES}")
 
-target_link_libraries(${PROJECT_NAME} optimized ${XERCESC_LIBRARY_RELEASE} debug ${XERCESC_LIBRARY_DEBUG})
+target_link_libraries(${PROJECT_NAME} ${XERCESC_LIBRARY})
 
 set_target_properties(${PROJECT_NAME}
     PROPERTIES
