@@ -8,7 +8,7 @@ This collection of sample applications are "sanity tests" to confirm and verify 
 
  * Consumable via CMake
  * Buildable via CMake
- * Runnable
+ * Runnable by the port consumer
 
 # Ports under test
 
