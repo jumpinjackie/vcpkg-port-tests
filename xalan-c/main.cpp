@@ -77,6 +77,7 @@ main(
             char*   /* argv */[])
 {
     XALAN_USING_STD(cerr)
+    XALAN_USING_STD(cout)
     XALAN_USING_STD(endl)
 
     int theResult = -1;
@@ -138,6 +139,10 @@ main(
                     cerr << "SimpleTransform Error: \n" << theXalanTransformer.getLastError()
                          << endl
                          << endl;
+                }
+                else
+                {
+                    cout << "Transformed foo.xml -> foo.out" << endl;
                 }
             }
 

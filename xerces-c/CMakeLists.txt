@@ -8,3 +8,10 @@ set(CreateDOMDocument_SOURCES "CreateDOMDocument.cpp")
 add_executable("${PROJECT_NAME}" "${CreateDOMDocument_SOURCES}")
 
 target_link_libraries(${PROJECT_NAME} optimized ${XERCESC_LIBRARY_RELEASE} debug ${XERCESC_LIBRARY_DEBUG})
+
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out/${PROJECT_NAME}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out/${PROJECT_NAME}/lib"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/out/${PROJECT_NAME}/bin"
+)
