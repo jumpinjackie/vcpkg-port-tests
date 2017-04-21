@@ -13,6 +13,7 @@ $testapps = @{}
 $testapps["libgd"] = "gdtest"
 $testapps["xalan-c"] = "xalantest"
 $testapps["xerces-c"] = "xercestest"
+$testapps["geos"] = "geostest"
 
 # CMake prepare
 $configs.keys | ForEach-Object {

@@ -15,3 +15,4 @@ This collection of sample applications are "sanity tests" to confirm and verify 
  * xerces-c
  * xalan-c
  * libgd
+ * geos

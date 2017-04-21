@@ -71,7 +71,6 @@ endif()
 #
 # libgd
 #
-# libgd
 find_path(GD_INCLUDE NAMES "gd.h")
 find_library(GD_LIBRARY NAMES libgd)
 if(NOT GD_INCLUDE)
@@ -85,6 +84,23 @@ else(NOT GD_LIBRARY)
     message(STATUS "Found GD library: ${GD_LIBRARY}")
 endif()
 
+#
+# geos
+#
+find_path(GEOS_INCLUDE NAMES "geos/geos.h")
+find_library(GEOS_LIBRARY NAMES geos)
+if(NOT GEOS_INCLUDE)
+    message(FATAL_ERROR "GEOS include path not found")
+else(NOT GEOS_INCLUDE)
+    message(STATUS "Found GEOS include path: ${GEOS_INCLUDE}")
+endif()
+if(NOT GEOS_LIBRARY)
+    message(FATAL_ERROR "GEOS library not found")
+else(NOT GEOS_LIBRARY)
+    message(STATUS "Found GEOS library: ${GEOS_LIBRARY}")
+endif()
+
 add_subdirectory(xalan-c)
 add_subdirectory(xerces-c)
 add_subdirectory(libgd)
+add_subdirectory(geos)
