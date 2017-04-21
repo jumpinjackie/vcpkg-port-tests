@@ -38,3 +38,4 @@ else(NOT XERCESC_LIBRARY)
 endif()
 
 add_subdirectory(xalan-c)
+add_subdirectory(xerces-c)
