@@ -1,13 +1,14 @@
-project(xercestest CXX)
+project(gdtest)
 
-include_directories(${XERCESC_INCLUDE})
+include_directories(${GD_INCLUDE})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-set(xercestest_SOURCES "main.cpp")
+add_definitions(-DHAVE_LIBPNG)
+set(gdtest_SOURCES "main.c")
 
-add_executable("${PROJECT_NAME}" "${xercestest_SOURCES}")
+add_executable("${PROJECT_NAME}" "${gdtest_SOURCES}")
 
-target_link_libraries(${PROJECT_NAME} ${XERCESC_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${GD_LIBRARY})
 
 set_target_properties(${PROJECT_NAME}
     PROPERTIES

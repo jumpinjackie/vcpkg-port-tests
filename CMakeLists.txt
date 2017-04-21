@@ -68,5 +68,23 @@ else()
     message(FATAL_ERROR "xerces-c library not found")
 endif()
 
+#
+# libgd
+#
+# libgd
+find_path(GD_INCLUDE NAMES "gd.h")
+find_library(GD_LIBRARY NAMES libgd)
+if(NOT GD_INCLUDE)
+    message(FATAL_ERROR "GD include path not found")
+else(NOT GD_INCLUDE)
+    message(STATUS "Found GD include path: ${GD_INCLUDE}")
+endif()
+if(NOT GD_LIBRARY)
+    message(FATAL_ERROR "GD library not found")
+else(NOT GD_LIBRARY)
+    message(STATUS "Found GD library: ${GD_LIBRARY}")
+endif()
+
 add_subdirectory(xalan-c)
 add_subdirectory(xerces-c)
+add_subdirectory(libgd)
