@@ -25,9 +25,9 @@ $configs.keys | ForEach-Object {
     Write-Host "[cmake]: Prepare $confKey"
     &cmake "-Bbuild/$confKey" `-G "$cmake_gen"` "-DCMAKE_TOOLCHAIN_FILE=$vcpkg_toolchain" "-DCMAKE_BUILD_TYPE=$config" "-H."
     if ($?) {
-        Write-Host "[cmake]: Prepare OK"
+        Write-Host "[cmake]: Prepare $confKey - OK"
     } else {
-        Write-Host "[cmake]: Prepare FAIL"
+        Write-Host "[cmake]: Prepare $confKey - FAIL"
         Set-Location $pwd
         exit 1
     }
@@ -42,9 +42,9 @@ $configs.keys | ForEach-Object {
     Write-Host "[cmake]: Build $confKey"
     &cmake --build build/$confKey --config $config
     if ($?) {
-        Write-Host "[cmake]: Prepare OK"
+        Write-Host "[cmake]: Build $confKey - OK"
     } else {
-        Write-Host "[cmake]: Prepare FAIL"
+        Write-Host "[cmake]: Build $confKey - FAIL"
         Set-Location $pwd
         exit 1
     }
@@ -66,9 +66,9 @@ $configs.keys | ForEach-Object {
         Set-Location -Path $pwd/build/$confKey/out/$app/bin/$config
         & $exe
         if ($?) {
-            Write-Host "[test]: OK"
+            Write-Host "[test]: $app - OK"
         } else {
-            Write-Host "[test]: FAIL"
+            Write-Host "[test]: $app - FAIL"
             Set-Location $pwd
             exit 1
         }
