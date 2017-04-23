@@ -100,7 +100,34 @@ else(NOT GEOS_LIBRARY)
     message(STATUS "Found GEOS library: ${GEOS_LIBRARY}")
 endif()
 
+#
+# gdal
+#
+find_path(GDAL_INCLUDE NAMES "gdal.h")
+find_library(GDAL_LIBRARY_DEBUG NAMES gdald)
+find_library(GDAL_LIBRARY_RELEASE NAMES gdal)
+if(NOT GDAL_INCLUDE)
+    message(FATAL_ERROR "gdal include path not found")
+else(NOT GDAL_INCLUDE)
+    message(STATUS "Found gdal include path: ${GDAL_INCLUDE}")
+endif()
+# This is the suggested pattern for finding debug/release libraries in multi-config generators like VS
+# https://cmake.org/Bug/view.php?id=13588&history=1
+if(GDAL_LIBRARY_DEBUG AND GDAL_LIBRARY_RELEASE)
+    set(GDAL_LIBRARY optimized ${GDAL_LIBRARY_RELEASE} debug ${GDAL_LIBRARY_DEBUG})
+    message(STATUS "Found gdal library")
+elseif(GDAL_LIBRARY_RELEASE)
+    set(GDAL_LIBRARY ${GDAL_LIBRARY_RELEASE})
+    message(STATUS "Found gdal release library: ${GDAL_LIBRARY}")
+elseif(GDAL_LIBRARY_DEBUG)
+    set(GDAL_LIBRARY ${GDAL_LIBRARY_DEBUG})
+    message(STATUS "Found gdal debug library: ${GDAL_LIBRARY}")
+else()
+    message(FATAL_ERROR "gdal library not found")
+endif()
+
 add_subdirectory(xalan-c)
 add_subdirectory(xerces-c)
 add_subdirectory(libgd)
 add_subdirectory(geos)
+add_subdirectory(gdal)

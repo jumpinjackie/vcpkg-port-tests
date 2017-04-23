@@ -14,6 +14,7 @@ $testapps["libgd"] = "gdtest"
 $testapps["xalan-c"] = "xalantest"
 $testapps["xerces-c"] = "xercestest"
 $testapps["geos"] = "geostest"
+$testapps["gdal"] = "gdaltest"
 
 # CMake prepare
 $configs.keys | ForEach-Object {
@@ -27,6 +28,7 @@ $configs.keys | ForEach-Object {
         Write-Host "[cmake]: Prepare OK"
     } else {
         Write-Host "[cmake]: Prepare FAIL"
+        Set-Location $pwd
         exit 1
     }
 }
@@ -43,6 +45,7 @@ $configs.keys | ForEach-Object {
         Write-Host "[cmake]: Prepare OK"
     } else {
         Write-Host "[cmake]: Prepare FAIL"
+        Set-Location $pwd
         exit 1
     }
 }
@@ -66,6 +69,7 @@ $configs.keys | ForEach-Object {
             Write-Host "[test]: OK"
         } else {
             Write-Host "[test]: FAIL"
+            Set-Location $pwd
             exit 1
         }
     }
