@@ -16,3 +16,5 @@ This collection of sample applications are "sanity tests" to confirm and verify 
  * xalan-c
  * libgd
  * geos
+ * gdal
+   * With geos integration (provided by sibling geos port)
