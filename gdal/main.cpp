@@ -20,6 +20,8 @@ int main(int argc, char** argv)
     GDALAllRegister();
 
     int errNo = CPLE_None;
+    int gdalCount = 0;
+    int ogrCount = 0;
 
     // Print GDAL driver support
     GDALDriverManager* drvManager = GetGDALDriverManager();
@@ -47,6 +49,7 @@ int main(int argc, char** argv)
                     drvInfo += " ";
                 }
                 std::cout << "GDAL Driver - " << drvInfo << std::endl;
+                gdalCount++;
             }
         }
     }
@@ -70,9 +73,12 @@ int main(int argc, char** argv)
                     drvInfo += " ";
                 }
                 std::cout << "OGR Driver - " << drvInfo << std::endl;
+                ogrCount++;
             }
         }
     }
+    std::cout << gdalCount << " GDAL Drivers found" << std::endl;
+    std::cout << ogrCount << " OGR Drivers found" << std::endl;
 
     std::string wkt1 = "POLYGON((0 0, 10 10, 10 0, 0 0))";
     std::string wkt2 = "POLYGON((-90 -90, -90 90, 190 -90, -90 -90))";
