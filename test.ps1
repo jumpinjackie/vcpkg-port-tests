@@ -15,6 +15,7 @@ $testapps["xalan-c"] = "xalantest"
 $testapps["xerces-c"] = "xercestest"
 $testapps["geos"] = "geostest"
 $testapps["gdal"] = "gdaltest"
+$testapps["podofo"] = "podofotest"
 
 # CMake prepare
 $configs.keys | ForEach-Object {
@@ -62,9 +63,10 @@ $configs.keys | ForEach-Object {
         $port = $_
         $app = $testapps[$port]
         $exe = ".\$app.exe"
+        $outputFile = "${app}_output.txt"
         Write-Host "[test]: $app for ($port - $confKey)"
         Set-Location -Path $pwd/build/$confKey/out/$app/bin/$config
-        & $exe
+        [string] (& $exe 2>&1) | Out-File $outputFile
         if ($?) {
             Write-Host "[test]: $app - OK"
         } else {

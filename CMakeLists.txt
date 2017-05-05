@@ -126,8 +126,26 @@ else()
     message(FATAL_ERROR "gdal library not found")
 endif()
 
+#
+# PoDoFo
+#
+find_path(PODOFO_INCLUDE NAMES "podofo/podofo.h")
+find_library(PODOFO_LIBRARY NAMES podofo)
+if(NOT PODOFO_INCLUDE)
+    message(FATAL_ERROR "PoDoFo include path not found")
+else(NOT PODOFO_INCLUDE)
+    message(STATUS "Found PoDoFo include path: ${PODOFO_INCLUDE}")
+endif()
+if(NOT PODOFO_LIBRARY)
+    message(FATAL_ERROR "PoDoFo library not found")
+else(NOT PODOFO_LIBRARY)
+    message(STATUS "Found PoDoFo library: ${PODOFO_LIBRARY}")
+endif()
+
+
 add_subdirectory(xalan-c)
 add_subdirectory(xerces-c)
 add_subdirectory(libgd)
 add_subdirectory(geos)
 add_subdirectory(gdal)
+add_subdirectory(podofo)
