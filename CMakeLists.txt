@@ -127,6 +127,32 @@ else()
 endif()
 
 #
+# cppunit
+#
+find_path(CPPUNIT_INCLUDE NAMES "cppunit/extensions/HelperMacros.h")
+find_library(CPPUNIT_LIBRARY_DEBUG NAMES cppunitd_dll)
+find_library(CPPUNIT_LIBRARY_RELEASE NAMES cppunit_dll)
+if(NOT CPPUNIT_INCLUDE)
+    message(FATAL_ERROR "cppunit include path not found")
+else(NOT CPPUNIT_INCLUDE)
+    message(STATUS "Found cppunit include path: ${CPPUNITINCLUDE}")
+endif()
+# This is the suggested pattern for finding debug/release libraries in multi-config generators like VS
+# https://cmake.org/Bug/view.php?id=13588&history=1
+if(CPPUNIT_LIBRARY_DEBUG AND CPPUNIT_LIBRARY_RELEASE)
+    set(CPPUNIT_LIBRARY optimized ${CPPUNIT_LIBRARY_RELEASE} debug ${CPPUNIT_LIBRARY_DEBUG})
+    message(STATUS "Found cppunit library")
+elseif(CPPUNIT_LIBRARY_RELEASE)
+    set(CPPUNIT_LIBRARY ${CPPUNIT_LIBRARY_RELEASE})
+    message(STATUS "Found cppunit release library: ${CPPUNIT_LIBRARY}")
+elseif(CPPUNIT_LIBRARY_DEBUG)
+    set(CPPUNIT_LIBRARY ${CPPUNIT_LIBRARY_DEBUG})
+    message(STATUS "Found cppunit debug library: ${CPPUNIT_LIBRARY}")
+else()
+    message(FATAL_ERROR "cppunit library not found")
+endif()
+
+#
 # PoDoFo
 #
 find_path(PODOFO_INCLUDE NAMES "podofo/podofo.h")
@@ -142,7 +168,7 @@ else(NOT PODOFO_LIBRARY)
     message(STATUS "Found PoDoFo library: ${PODOFO_LIBRARY}")
 endif()
 
-
+add_subdirectory(cppunit)
 add_subdirectory(xalan-c)
 add_subdirectory(xerces-c)
 add_subdirectory(libgd)

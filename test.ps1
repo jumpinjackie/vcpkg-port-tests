@@ -16,6 +16,7 @@ $testapps["xerces-c"] = "xercestest"
 $testapps["geos"] = "geostest"
 $testapps["gdal"] = "gdaltest"
 $testapps["podofo"] = "podofotest"
+$testapps["cppunit"] = "unittest"
 
 # CMake prepare
 $configs.keys | ForEach-Object {
