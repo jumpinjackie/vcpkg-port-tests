@@ -7,7 +7,13 @@ set(podofotest_SOURCES "main.cpp")
 
 add_executable("${PROJECT_NAME}" "${podofotest_SOURCES}")
 
-target_link_libraries(${PROJECT_NAME} ${PODOFO_LIBRARY})
+set(podofotest_LINK ${PODOFO_LIBRARY})
+
+if(TEST_STATIC)
+    target_link_libraries(${PROJECT_NAME} ${PODOFO_LIBRARY} ${ZLIB_LIBRARIES} ${BZIP2_LIBRARIES} ${JPEG_LIBRARIES} ${PNG_LIBRARIES} ${FREETYPE_LIBRARIES} wsock32 ws2_32)
+else()
+    target_link_libraries(${PROJECT_NAME} ${PODOFO_LIBRARY})
+endif()
 
 set_target_properties(${PROJECT_NAME}
     PROPERTIES
