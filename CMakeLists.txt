@@ -150,7 +150,7 @@ endif()
 if(NOT CPPUNIT_INCLUDE)
     message(FATAL_ERROR "cppunit include path not found")
 else(NOT CPPUNIT_INCLUDE)
-    message(STATUS "Found cppunit include path: ${CPPUNITINCLUDE}")
+    message(STATUS "Found cppunit include path: ${CPPUNIT_INCLUDE}")
 endif()
 # This is the suggested pattern for finding debug/release libraries in multi-config generators like VS
 # https://cmake.org/Bug/view.php?id=13588&history=1

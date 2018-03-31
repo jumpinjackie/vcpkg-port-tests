@@ -1,3 +1,4 @@
+param([switch]$static)
 $vcpkg_root = "D:\Workspace\vcpkg"
 $vcpkg_toolchain = "$vcpkg_root\scripts\buildsystems\vcpkg.cmake"
 
@@ -8,10 +9,12 @@ $configs["x86_debug"] = @("Visual Studio 15 2017", "Debug", $False)
 $configs["x86_release"] = @("Visual Studio 15 2017", "Release", $False)
 $configs["x64_debug"] = @("Visual Studio 15 2017 Win64", "Debug", $False)
 $configs["x64_release"] = @("Visual Studio 15 2017 Win64", "Release", $False)
-$configs["x86_debug_static"] = @("Visual Studio 15 2017", "Debug", $True, "x86-windows-static")
-$configs["x86_release_static"] = @("Visual Studio 15 2017", "Release", $True, "x86-windows-static")
-$configs["x64_debug_static"] = @("Visual Studio 15 2017 Win64", "Debug", $True, "x64-windows-static")
-$configs["x64_release_static"] = @("Visual Studio 15 2017 Win64", "Release", $True, "x64-windows-static")
+if ($static) {
+    $configs["x86_debug_static"] = @("Visual Studio 15 2017", "Debug", $True, "x86-windows-static")
+    $configs["x86_release_static"] = @("Visual Studio 15 2017", "Release", $True, "x86-windows-static")
+    $configs["x64_debug_static"] = @("Visual Studio 15 2017 Win64", "Debug", $True, "x64-windows-static")
+    $configs["x64_release_static"] = @("Visual Studio 15 2017 Win64", "Release", $True, "x64-windows-static")
+}
 
 $testapps = @{}
 $testapps["libgd"] = @("gdtest", $False)

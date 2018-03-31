@@ -61,11 +61,11 @@ int main(int argc, char** argv)
         int driverCount = ogrRegistrar->GetDriverCount();
         for (int i = 0; i < driverCount; i++)
         {
-            OGRSFDriver* driver = ogrRegistrar->GetDriver(i);
+            GDALDriver* driver = ogrRegistrar->GetDriver(i);
             if (driver)
             {
                 std::string drvInfo;
-                const char* desc = driver->GetName();
+                const char* desc = driver->GetDescription();
                 if (desc && strlen(desc) > 0)
                 {
                     drvInfo += "Name: ";
